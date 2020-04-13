@@ -1,0 +1,10 @@
+• game analisis : getting → the rules
+			  → the init phase : what is constant and what depends on difficulty
+			  → the turn phase
+			  → the core experience : to chose some key features that video game can bring to 
+						Pandemic and show to the client that I understand and am 
+						involved in the heart of his game philosophy
+
+• code preparation : writing → game loop 
+			     → main functions
+			     → short UML : architecture reflection
