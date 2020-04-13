@@ -2,3 +2,11 @@
 PandemicProject/Library/
 
 PandemicProject/Logs/
+
+PandemicProject/obj/
+
+PandemicProject/.vs/
+
+PandemicProject/Assembly-CSharp.csproj
+
+PandemicProject/PandemicProject.sln
