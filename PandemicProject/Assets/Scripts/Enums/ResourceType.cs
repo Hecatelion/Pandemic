@@ -10,5 +10,6 @@ public enum ResourceType
 	Power,
 	FirstAid,
 	Water,
-	Count
+	Count,
+	Any
 }

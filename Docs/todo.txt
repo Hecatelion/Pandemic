@@ -1,32 +1,37 @@
-- board
-	-> all objects
+• next task : finish ResourcesRamp.cs
 
-- rooms
-	-> all module // click interact  &  no condition
+• next task : rooms -> test resources' modules
+		    -> implemente specific rooms with thos modules
 
-- plane
-	-> moving
 
-- dice 
-	-> use on module
+/////////////////////////////////////////
+
+	[Phase : First Playable]
+
+
+- board	-> collisions
+
+- rooms	-> all module // click interact  &  no condition
+
+- plane	-> moving
+
+- dice 	-> use on module
 	-> module condition
 
-- players
-	-> role attribution
-	-> turn system
+- players -> role attribution
+	  -> turn system
 
-- cities
-	-> cities attribution on board
-	-> HQ cities queue
-	-> cargo drop match resources 
+- cities  -> cities attribution on board
+	  -> HQ cities queue
+	  -> cargo drop match resources 
 
-- timer system
-	-> timer
-	-> pause
-	-> tokens
+- timer system	-> timer
+		-> pause
+		-> tokens
  
-- cards
-	-> graphics
+- cards -> graphics
 	-> draw
 	-> zoom
 	-> trash
+
+/////////////////////////////////////////
