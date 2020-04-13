@@ -1,0 +1,32 @@
+- board
+	-> all objects
+
+- rooms
+	-> all module // click interact  &  no condition
+
+- plane
+	-> moving
+
+- dice 
+	-> use on module
+	-> module condition
+
+- players
+	-> role attribution
+	-> turn system
+
+- cities
+	-> cities attribution on board
+	-> HQ cities queue
+	-> cargo drop match resources 
+
+- timer system
+	-> timer
+	-> pause
+	-> tokens
+ 
+- cards
+	-> graphics
+	-> draw
+	-> zoom
+	-> trash
