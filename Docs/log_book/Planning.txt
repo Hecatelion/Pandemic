@@ -1,0 +1,6 @@
+- Mon 13 : Gameplay analysis, Architecture, First Playable (raw prototype) 33%
+- Tue 14 : First Playable 100%
+- Wed 15 : Gameplay Prettier Features (pawn and dice manipulation, interactive modules, diegetic UI), UX improvement 50%
+- Thur 16 : UX improvement 100%, Presentation Doc, Game Design shades propositions
+
+- Fri 17 : day left which will certainly be consumed by unexpected events

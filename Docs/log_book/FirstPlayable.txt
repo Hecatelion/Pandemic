@@ -11,7 +11,7 @@
 
 - board	-> collisions
 
-- rooms	-> all module // click interact  &  no condition
+- rooms  -> all module // click interact  &  no condition [currentlty here]
 
 - plane	-> moving
 

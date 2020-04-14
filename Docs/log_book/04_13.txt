@@ -1,10 +1,27 @@
-• game analisis : getting → the rules
-			  → the init phase : what is constant and what depends on difficulty
-			  → the turn phase
-			  → the core experience : to chose some key features that video game can bring to 
-						Pandemic and show to the client that I understand and am 
-						involved in the heart of his game philosophy
+work duration :  10h30, mail and docs included
 
-• code preparation : writing → game loop 
-			     → main functions
-			     → short UML : architecture reflection
+///////////////////////////////////
+
+[work done] 
+
+• game analisis : getting
+ → the rules
+ → the init phase : what is constant and what depends on difficulty
+ → the turn phase
+ → the core experience : to chose some key features that video game medium 
+	can bring to Pandemic and show to the client that I understand and 
+	am involved in the heart of his game philosophy
+
+>> c.f. linked pictures 3, 4, 5
+
+• code preparation : writing → game loop
+    → main functions
+    → short UML : architecture reflection
+
+>> c.f. linked pictures 1, 2
+
+• Starting First Playable Version Developpement
+
+>> c.f. linked FirstPlayable.txt
+
+• Planning >> c.f. linked Planning.txt
