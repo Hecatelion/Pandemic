@@ -4,13 +4,19 @@ using UnityEngine;
 
 public class ResourceDie : PhysicsInteractible, IPickable
 {
-	[SerializeField] public Player owner;
+	public Player owner;
 	public ResourceType faceType = ResourceType.None;
 	public bool isSelected = false;
+	public bool isStable = false;
+
+	Rigidbody rb;
+
+	//public Callback onStabilise = () => { };
 
 	void Start()
 	{
 		owner = transform.parent.GetComponent<Player>();
+		rb = GetComponent<Rigidbody>();
 
 		ReturnToOwner();
 
@@ -18,7 +24,15 @@ public class ResourceDie : PhysicsInteractible, IPickable
 	}
 
 	void Update()
-	{ }
+	{
+		if (!isStable && rb.IsSleeping())
+		{
+			SetTypeFromFace();
+			isStable = true;
+
+			//onStabilise();
+		}
+	}
 
 	public void OnMouseDown()
 	{
@@ -32,28 +46,6 @@ public class ResourceDie : PhysicsInteractible, IPickable
 		}
 	}
 
-	/*
-	public void Select()
-	{
-		if (!isSelected)
-		{
-			owner.selectedDice.Add(this);
-			isSelected = true;
-
-			Debug.Log("dice selected");
-		}
-	}
-
-	public void Unselect()
-	{
-		if (isSelected)
-		{
-			owner.selectedDice.Remove(this);
-			isSelected = false;
-
-			Debug.Log("die unselected");
-		}
-	}*/
 
 	void IPickable.Pick()
 	{
@@ -63,7 +55,7 @@ public class ResourceDie : PhysicsInteractible, IPickable
 	public void ReturnToOwner()
 	{
 		AssignTo(owner.transform);
-		AllowPhysics();
+		AllowPhysics(false);
 		Unlock();
 	}
 

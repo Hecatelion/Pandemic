@@ -4,10 +4,21 @@ using UnityEngine;
 
 public class TheGameManager : MonoBehaviour
 {
-    void Start()
-    {
-        
-    }
+	public static TheGameManager instance;
+
+	[SerializeField] public Player curPlayer;
+
+	void Start()
+	{
+		if (instance == null)
+		{
+			instance = this;
+		}
+		else
+		{
+			Destroy(this.gameObject);
+		}
+	}
 
     void Update()
     {
