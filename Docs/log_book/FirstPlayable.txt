@@ -1,7 +1,4 @@
-• next task : finish ResourcesRamp.cs
-
-• next task : rooms -> test resources' modules
-		    -> implemente specific rooms with thos modules
+-> implemente specific rooms with those modules
 
 
 /////////////////////////////////////////
@@ -9,17 +6,20 @@
 	[Phase : First Playable]
 
 
-- board	-> collisions
+• board	-> • collisions
 
-- rooms  -> all module // click interact  &  no condition [currentlty here]
+3) - rooms -> all module // click interact  &  no condition [currentlty here]
 
 - plane	-> moving
 
-- dice 	-> use on module
-	-> module condition
+- dice 	-> • use on module
+	-> • module condition
+	-> • selection list
+2)	-> throwing and getting resource type according to upward face
 
 - players -> role attribution
 	  -> turn system
+	  -> pawn movement
 
 - cities  -> cities attribution on board
 	  -> HQ cities queue

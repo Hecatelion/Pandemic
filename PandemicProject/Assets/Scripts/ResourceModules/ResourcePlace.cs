@@ -18,14 +18,20 @@ public class ResourcePlace : MonoBehaviour
 		isFull = true;
 
 		die = _die;
+		die.AssignTo(this.transform);
+
+		die.AllowPhysics(false);
 		die.Lock();
 	}
 
 	public void Empty()
 	{
-		isFull = false;
+		if (isFull)
+		{
+			isFull = false;
 
-		die.Unlock();
-		die = null;
+			die.ReturnToOwner();
+			die = null;
+		}
 	}
 }

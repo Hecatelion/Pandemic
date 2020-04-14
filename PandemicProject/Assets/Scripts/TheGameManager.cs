@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SupplyRoom : Room
+public class TheGameManager : MonoBehaviour
 {
-	public ResourceType resourceType = ResourceType.None;
-
     void Start()
     {
         

@@ -1,0 +1,6 @@
+front face : vaccine
+back face : food
+top face : power
+bottom face : first aid
+right face : water
+left face : plane

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Room : MonoBehaviour
 {
-	[SerializeField] RoomType type = RoomType.None;
+	[SerializeField] public RoomType roomType = RoomType.None;
 	[SerializeField] Room[] connectedRooms = new Room[0];
 
 	void Start()
@@ -17,10 +17,10 @@ public class Room : MonoBehaviour
 
 	void ConnectionTestLog()
 	{
-		string log = type + " connected to : ";
+		string log = roomType + " connected to : ";
 		foreach (var room in connectedRooms)
 		{
-			log += room.type + ", ";
+			log += room.roomType + ", ";
 		}
 
 		Debug.Log(log);
