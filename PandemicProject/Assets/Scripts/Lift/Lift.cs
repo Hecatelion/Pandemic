@@ -26,8 +26,7 @@ public class Lift : MonoBehaviour
 
 	private void OnMouseDown()
 	{
-		Supply[] supplies = GameObject.FindObjectsOfType<Supply>();
-		TryCatchingSupply((from supply in supplies where supply.type == type select supply).ToArray()[0]);
+		TryCatchingSupply(GetAllFreeSuitableSupplies()[0]);
 	}
 
 	public void TryCatchingSupply(Supply _supply)
@@ -76,7 +75,7 @@ public class Lift : MonoBehaviour
 
 	public void Activate(int _sendingAmount)
 	{
-		sendingAmount = _sendingAmount;
+		sendingAmount = Mathf.Min(Mathf.Min(_sendingAmount, GetAllFreeSuitableSupplies().Count), cargo.bay.GetFreeSlotAmount());
 
 		isUsable = true;
 
@@ -89,5 +88,23 @@ public class Lift : MonoBehaviour
 
 		Debug.Log("Lift Deactivated");
 		onDeactivation();
+	}
+
+	List<Supply> GetAllFreeSuitableSupplies()
+	{
+		// all supplies of this lift type
+		Supply[] supplies = (from supply in FindObjectsOfType<Supply>() where supply.type == type select supply).ToArray();
+
+		List<Supply> validSupplies = new List<Supply>();
+
+		foreach (var supply in supplies)
+		{
+			if (supply.curRoom == supply.homeRoom)
+			{
+				validSupplies.Add(supply);
+			}
+		}
+
+		return validSupplies;
 	}
 }

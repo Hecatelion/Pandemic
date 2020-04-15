@@ -1,4 +1,4 @@
--> implemente specific rooms with those modules
+[next task] -> put all cities on board
 
 
 /////////////////////////////////////////
@@ -43,14 +43,17 @@
 
 	[Phase : Improvement]
 
+- UI
+
 - dice -> use dot product to get face type of leaning dice
 	-> on throw : add torque velocity
 	-> Lock() when on modules or role card
+	-> drag'n'drop
 
 - split AssignTo(Transform) in many AssignTo(Type) to make do specific things
 
-- supply -> select supplies 1 by 1
+- supply -> select supplies to send
 	 -> accept dice selection and try to fill multiple groups
-[Here]	 -> if (bay.freespace < sending amount) sending amount = bay.freespace;
-[Here]	 -> if (room.FreeSupplies.Count < sending amount) sending amount = room.FreeSupplies.Count;
-[Here]	 -> 4 supply crates by room
+	 -> • if (bay.freespace < sending amount) sending amount = bay.freespace;
+	 -> • if (room.FreeSupplies.Count < sending amount) sending amount = room.FreeSupplies.Count;
+	 -> • 4 supply crates by room

@@ -10,7 +10,7 @@ public class DiceHand : MonoBehaviour
     void Start()
     {
 		slots = GetComponentsInChildren<DiceSlot>();
-    }
+	}
 
     void Update()
     {
