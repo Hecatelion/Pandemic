@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3177915318734648911}
   - component: {fileID: 5090946949492715713}
+  - component: {fileID: 8684315688912154885}
   m_Layer: 0
   m_Name: CargoRoom
   m_TagString: Untagged
@@ -51,6 +52,19 @@ MonoBehaviour:
   connectedRooms:
   - {fileID: 0}
   bay: {fileID: 0}
+--- !u!65 &8684315688912154885
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2232944720740304355}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5, y: 1, z: 17}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5447273203362167018
 GameObject:
   m_ObjectHideFlags: 0
@@ -62,7 +76,6 @@ GameObject:
   - component: {fileID: 1317117287713429876}
   - component: {fileID: 5938102441163612858}
   - component: {fileID: 6753655589751643075}
-  - component: {fileID: 7712099840904573977}
   m_Layer: 0
   m_Name: CargoRoom
   m_TagString: Untagged
@@ -99,7 +112,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5447273203362167018}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -130,20 +143,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &7712099840904573977
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5447273203362167018}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1001 &1093062383208718416
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -56,7 +56,8 @@ public class City : MonoBehaviour
 
 	private void OnMouseDown()
 	{
-		if (DistanceWith(airplane.curCity) <= airplane.movementAllowed)
+		int dist = DistanceWith(airplane.curCity);
+		if (dist > 0 && dist <= airplane.movementAllowed)
 		{
 			airplane.MoveTo(this);
 			airplane.movementAllowed = 0;
@@ -110,11 +111,20 @@ public class City : MonoBehaviour
 	public bool CanBeRescued(List<Supply> _supplies)
 	{
 		ResourceType[] resources = (from supply in _supplies select supply.type).ToArray();
-		
-		return resourcesNeededAmount.SequenceEqual(GetResourceAmount(resources));
+		int[] resourcesAmount = GetResourceAmount(resources);
+
+		for (int i = 0; i < 5; i++)
+		{
+			if (resourcesAmount[i] < resourcesNeededAmount[i])
+			{
+				return false;
+			}
+		}
+
+		return true;
 	}
 
-	void Rescue()
+	public void Rescue()
 	{
 		Destroy(card.gameObject);
 		state = CityState.Rescued;

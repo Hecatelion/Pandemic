@@ -6,9 +6,11 @@ using System.Linq;
 public class Bay : MonoBehaviour
 {
 	SupplySlot[] slots;
+	Airplane airplane;
 
 	void Start()
 	{
+		airplane = FindObjectOfType<Airplane>();
 		slots = GetComponentsInChildren<SupplySlot>();
 	}
 
@@ -44,26 +46,38 @@ public class Bay : MonoBehaviour
 
 	public void SendSupplies()
 	{
-		Debug.Log("Bay sending supplies. (needs to be implemented)");
-
 		// should return sent supplies to owner room & reset sandtimer
+		List<ResourceType> resourcesNeeded = new List<ResourceType>();
+		for (int i = 0; i < airplane.curCity.resourcesNeeded.Length; i++)
+		{
+			resourcesNeeded.Add(airplane.curCity.resourcesNeeded[i]);
+		}
 
 		foreach (var slot in slots)
 		{
 			if (!slot.isFree)
 			{
-				slot.supply.ReturnToHomeRoom();
-				slot.Empty();
+				foreach (var resourceNeeded in resourcesNeeded)
+				{
+					if (slot.supply.type == resourceNeeded)
+					{
+						slot.supply.ReturnToHomeRoom();
+						slot.Empty();
+
+						resourcesNeeded.Remove(resourceNeeded);
+						break;
+					}
+				}
 			}
 		}
+
+		airplane.curCity.Rescue();
 	}
 
 	public bool HasValidSupplies()
 	{
-		Debug.Log("Bay supply check. (needs to be implemented)");
-
-		// should compare with current town supply needs
-		return true;
+		List<Supply> supplies = GetSupplies();
+		return airplane.curCity.CanBeRescued(supplies);
 	}
 
 	public int GetFreeSlotAmount()
@@ -79,5 +93,10 @@ public class Bay : MonoBehaviour
 		}
 
 		return amount;
+	}
+
+	public List<Supply> GetSupplies()
+	{
+		return (from slot in slots where !slot.isFree select slot.supply).ToList();
 	}
 }

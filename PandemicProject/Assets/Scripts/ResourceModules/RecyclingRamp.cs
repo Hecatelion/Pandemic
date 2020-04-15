@@ -27,7 +27,7 @@ public class RecyclingRamp : ResourceRamp
 
 		wasteLadder.SetWasteLevel(wasteLevel);
 
-		ReturnDiceToOwner();
+		PutDiceOnCard();
 		Empty();
 	}
 }

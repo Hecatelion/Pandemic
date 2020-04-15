@@ -36,7 +36,7 @@ public class DiceThrower : MonoBehaviour
 		ThrowSelection();
 	}
 
-	public void Throw(List<ResourceDie> _dice)
+	public void Throw(List<ResourceDie> _dice, bool _consumeDice = true)
 	{
 		GetDice(_dice);
 
@@ -50,28 +50,23 @@ public class DiceThrower : MonoBehaviour
 			die.isStable = false;
 		}
 
-		StartCoroutine(WaitForResult());
+		StartCoroutine(WaitForResult(_consumeDice));
 	}
 
 	public void ThrowSelection()
 	{
 		Selection selection = TheGameManager.instance.curPlayer.selection;
 		selection.TakeDiceOutOfHand();
-		Throw(selection.dice);
+		Throw(selection.dice, false);
 		selection.Flush();
 	}
 
 	public void Empty()
 	{
-		foreach (var die in dice)
-		{
-			die.ReturnToOwner();
-		}
-
 		dice.Clear();
 	}
 
-	public IEnumerator WaitForResult()
+	public IEnumerator WaitForResult(bool _consumeDice)
 	{
 		bool areDiceStable = false;
 
@@ -94,6 +89,21 @@ public class DiceThrower : MonoBehaviour
 		}
 
 		onThrowEnd(dice);
+
+		if (_consumeDice)
+		{
+			foreach (var die in dice)
+			{
+				die.PutOnCard();
+			}
+		}
+		else
+		{
+			foreach (var die in dice)
+			{
+				die.ReturnToOwner();
+			}
+		}
 
 		Empty();
 

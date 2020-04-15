@@ -11,8 +11,9 @@
 • rooms -> • supplies
 	-> • bay
 	-> • waste : wasteLevel pawn
+	-> player pawn restriction
 
-• plane	-> moving
+• plane	-> • moving
 
 • dice 	-> • use on module
 	-> • module condition
@@ -22,11 +23,11 @@
 
 - players -> role attribution
 	  -> turn system
-	  -> pawn movement
+	  -> • pawn movement
 
 - cities  -> • cities on board
 	  -> HQ cities queue
-	  -> cargo drop match resources 
+	  -> • cargo drop match resources 
 
 - timer system	-> timer
 		-> pause
@@ -44,8 +45,12 @@
 
 - dice -> use dot product to get face type of leaning dice
 	-> on throw : add torque velocity
+	-> Lock() when on modules or role card
 
 - split AssignTo(Transform) in many AssignTo(Type) to make do specific things
 
-- ramps -> accept dice selection and try to fill multiple groups
-	-> if (bay.freespace < sending amount) sending amount = bay.freespace;
+- supply -> select supplies 1 by 1
+	 -> accept dice selection and try to fill multiple groups
+[Here]	 -> if (bay.freespace < sending amount) sending amount = bay.freespace;
+[Here]	 -> if (room.FreeSupplies.Count < sending amount) sending amount = room.FreeSupplies.Count;
+[Here]	 -> 4 supply crates by room

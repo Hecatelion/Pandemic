@@ -103,11 +103,19 @@ public abstract class ResourceRamp : MonoBehaviour
 		}
 	}
 
-	public void ReturnDiceToOwner()
+	/*public void ReturnDiceToOwner()
 	{
 		foreach (var die in GetDice())
 		{
 			die.ReturnToOwner();
+		}
+	}*/
+
+	public void PutDiceOnCard()
+	{
+		foreach (var die in GetDice())
+		{
+			die.PutOnCard();
 		}
 	}
 

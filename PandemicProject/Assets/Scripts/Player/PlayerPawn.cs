@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerPawn : MonoBehaviour
+public class PlayerPawn : Interactible
 {
 	public int movementAllowed = 0;
 	public Room curRoom;
+	public Player player;
 
 	void Start()
     {
@@ -19,7 +20,10 @@ public class PlayerPawn : MonoBehaviour
 
 	private void OnMouseDown()
 	{
-		UseSelectionAsMovement(TheGameManager.instance.curPlayer.selection);
+		if (TheGameManager.instance.curPlayer == player)
+		{
+			UseSelectionAsMovement(TheGameManager.instance.curPlayer.selection);
+		}
 	}
 
 	public void UseSelectionAsMovement(Selection _selection)
@@ -33,5 +37,11 @@ public class PlayerPawn : MonoBehaviour
 		Debug.Log("Player's pawn movement allowed : " + movementAllowed);
 
 		_selection.Flush();
+	}
+
+	public void MoveTo(Room _room)
+	{
+		curRoom = _room;
+		transform.position = curRoom.transform.position;
 	}
 }

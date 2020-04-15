@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class Airplane : MonoBehaviour
+public class Airplane : Interactible
 {
 	public City curCity;
 	public int movementAllowed = 0;

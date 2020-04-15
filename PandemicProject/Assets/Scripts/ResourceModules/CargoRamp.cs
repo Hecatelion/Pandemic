@@ -30,7 +30,7 @@ public class CargoRamp : ResourceRamp
 	{
 		bay.SendSupplies();
 
-		ReturnDiceToOwner();
+		PutDiceOnCard();
 		Empty();
 	}
 }
