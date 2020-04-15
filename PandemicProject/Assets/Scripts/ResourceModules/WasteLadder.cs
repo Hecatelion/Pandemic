@@ -6,10 +6,23 @@ public class WasteLadder : MonoBehaviour
 {
 	public int wasteLevel = 0;
 
+	[SerializeField] GameObject wastePawn;
+	[SerializeField] GameObject pawnPositionsObj;
+	List<Vector3> pawnPositions = new List<Vector3>();
+
 	DiceThrower diceThrower;
 
     void Start()
     {
+		// init pawnPositions
+		foreach (Transform t in pawnPositionsObj.transform)
+		{
+			if (t != pawnPositionsObj.transform)
+			{
+				pawnPositions.Add(t.position);
+			}
+		}
+
 		diceThrower = FindObjectOfType<DiceThrower>();
 
 		SetWasteLevel(0);
@@ -50,8 +63,8 @@ public class WasteLadder : MonoBehaviour
 	public void SetWasteLevel(int _level)
 	{
 		wasteLevel = _level;
-		Debug.Log(wasteLevel);
-		
+
 		// move waste pawn
+		wastePawn.transform.position = pawnPositions[wasteLevel];
 	}
 }

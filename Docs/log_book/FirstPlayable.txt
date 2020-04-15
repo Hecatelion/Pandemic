@@ -8,14 +8,14 @@
 
 • board	-> • collisions
 
-3) - rooms [currentlty here]
+• rooms
 	-> • supplies
-	-> bay
-	-> • waste
+	-> • bay
+	-> • waste : wasteLevel pawn
 
 - plane	-> moving
 
-- dice 	-> • use on module
+• dice 	-> • use on module
 	-> • module condition
 	-> • selection list
 	-> • throwing and getting resource type according to upward face
