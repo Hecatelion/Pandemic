@@ -18,7 +18,7 @@ public class Lift : MonoBehaviour
 
 	void Start()
     {
-        
+		cargo = FindObjectOfType<CargoRoom>();
     }
 
     void Update()
