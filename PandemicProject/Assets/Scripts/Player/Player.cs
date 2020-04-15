@@ -9,9 +9,11 @@ public class Player : MonoBehaviour
 	[SerializeField] public List<ResourceDie> dice;
 	[SerializeField] public GameObject selectionPrefab;
 	public Selection selection;
+	public RoleCard card;
 
     void Start()
     {
+		card = GetComponentInChildren<RoleCard>();
 		selection = Instantiate(selectionPrefab, transform.position, Quaternion.identity).GetComponent<Selection>();
     }
 

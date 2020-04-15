@@ -8,12 +8,11 @@
 
 • board	-> • collisions
 
-• rooms
-	-> • supplies
+• rooms -> • supplies
 	-> • bay
 	-> • waste : wasteLevel pawn
 
-- plane	-> moving
+• plane	-> moving
 
 • dice 	-> • use on module
 	-> • module condition
@@ -25,18 +24,19 @@
 	  -> turn system
 	  -> pawn movement
 
-- cities  -> cities attribution on board
+- cities  -> • cities on board
 	  -> HQ cities queue
 	  -> cargo drop match resources 
 
 - timer system	-> timer
 		-> pause
 		-> tokens
+		-> city spawning
  
-- cards -> graphics
+(- cards -> graphics
 	-> draw
 	-> zoom
-	-> trash
+	-> trash)
 
 /////////////////////////////////////////
 
@@ -44,6 +44,8 @@
 
 - dice -> use dot product to get face type of leaning dice
 	-> on throw : add torque velocity
+
+- split AssignTo(Transform) in many AssignTo(Type) to make do specific things
 
 - ramps -> accept dice selection and try to fill multiple groups
 	-> if (bay.freespace < sending amount) sending amount = bay.freespace;

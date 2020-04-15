@@ -8,7 +8,6 @@ public class PhysicsInteractible : Interactible
 	{
 		transform.SetParent(_parent);
 		transform.localPosition = Vector3.zero;
-		transform.localRotation = Quaternion.identity;
 	}
 
 	public void AllowPhysics(bool _b = true)

@@ -9,6 +9,8 @@ public class ResourceDie : PhysicsInteractible, IPickable
 	public bool isSelected = false;
 	public bool isStable = false;
 
+	public bool hasBeenUsedThisTurn = false;
+
 	float sleepingTimeToBeStable = 1f;
 	float sleepingTime = 0f;
 
@@ -139,5 +141,17 @@ public class ResourceDie : PhysicsInteractible, IPickable
 			Debug.Log("no face, forward : " + dieForward);
 			return ResourceType.None;
 		}
+	}
+
+	public void SetUsedThisTurn()
+	{
+		hasBeenUsedThisTurn = true;
+	}
+
+	public void PutOnCard()
+	{
+		AssignTo(owner.card.transform);
+		AllowPhysics(false);
+		Lock();
 	}
 }
