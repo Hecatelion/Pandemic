@@ -5,6 +5,7 @@ using System.Linq;
 
 public class Player : MonoBehaviour
 {
+	[SerializeField] public DiceHand hand;
 	[SerializeField] public List<ResourceDie> dice;
 	[SerializeField] public GameObject selectionPrefab;
 	public Selection selection;

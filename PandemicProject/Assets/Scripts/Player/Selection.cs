@@ -47,4 +47,12 @@ public class Selection : MonoBehaviour
 			Debug.Log("Dice unselected");
 		}
 	}
+
+	public void TakeDiceOutOfHand()
+	{
+		foreach (var die in dice)
+		{
+			die.TakeOutOfHand();
+		}
+	}
 }

@@ -52,11 +52,14 @@ public class ResourceDie : PhysicsInteractible, IPickable
 		// pick
 	}
 
+	public void TakeOutOfHand()
+	{
+		owner.hand.Release(this);
+	}
+
 	public void ReturnToOwner()
 	{
-		AssignTo(owner.transform);
-		AllowPhysics(false);
-		Unlock();
+		owner.hand.Catch(this);
 	}
 
 	public void SetRandomFace()

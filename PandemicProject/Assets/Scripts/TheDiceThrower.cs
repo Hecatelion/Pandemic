@@ -58,7 +58,7 @@ public class TheDiceThrower : MonoBehaviour
 	public void ThrowSelection()
 	{
 		Selection selection = TheGameManager.instance.curPlayer.selection;
-
+		selection.TakeDiceOutOfHand();
 		Throw(selection.dice);
 		selection.Flush();
 	}

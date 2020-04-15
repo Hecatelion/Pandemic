@@ -15,7 +15,7 @@
 - dice 	-> • use on module
 	-> • module condition
 	-> • selection list
-2)	-> throwing and getting resource type according to upward face
+	-> • throwing and getting resource type according to upward face
 
 - players -> role attribution
 	  -> turn system

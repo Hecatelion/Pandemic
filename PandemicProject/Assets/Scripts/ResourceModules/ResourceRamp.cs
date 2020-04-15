@@ -60,6 +60,7 @@ public abstract class ResourceRamp : MonoBehaviour
 
 	public void CatchDice(Selection _selection)
 	{
+		_selection.TakeDiceOutOfHand();
 		GetHigherFreeGroup().Fill(_selection.dice);
 		_selection.Flush();
 	}
