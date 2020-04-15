@@ -40,4 +40,16 @@ public class ResourceGroup : MonoBehaviour
 
 		isFull = false;
 	}
+
+	public List<ResourceDie> GetDice()
+	{
+		List<ResourceDie> dice = new List<ResourceDie>();
+
+		foreach (var place in resourcePlaces)
+		{
+			if(place.die != null) dice.Add(place.die);
+		}
+
+		return dice;
+	}
 }

@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class SupplyRamp : ResourceRamp
 {
-	[SerializeField] public Player temporary;
 	[SerializeField] public Lift lift;
+
+	WasteLadder wasteLadder;
 
 	void Start()
     {
+		wasteLadder = FindObjectOfType<WasteLadder>();
+
 		lift.onDeactivation += GenerateWaste;
 	}
 
@@ -17,7 +20,7 @@ public class SupplyRamp : ResourceRamp
 
 	private void OnMouseDown()
 	{
-		TryCatchingDice(temporary.selection);
+		TryCatchingDice(TheGameManager.instance.curPlayer.selection);
 	}
 
 	public override void Activate()
@@ -27,7 +30,7 @@ public class SupplyRamp : ResourceRamp
 
 	public void GenerateWaste()
 	{
-		Debug.Log("generate waste here");
+		wasteLadder.StartWasteGeneration(GetDice());
 
 		Empty();
 	}

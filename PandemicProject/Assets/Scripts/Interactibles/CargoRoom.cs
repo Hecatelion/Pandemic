@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class CargoRoom : Room
 {
-    // Start is called before the first frame update
+	public Bay bay;
     void Start()
     {
-        
+		bay = FindObjectOfType<Bay>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         
     }
+
+	public void ReceiveSupply(Supply _supply)
+	{
+		_supply.SendToRoom(this);
+		bay.Catch(_supply);
+	}
 }

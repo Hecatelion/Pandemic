@@ -30,7 +30,7 @@ public class ResourcePlace : MonoBehaviour
 		{
 			isFull = false;
 
-			die.ReturnToOwner();
+			//die.ReturnToOwner();
 			die = null;
 		}
 	}

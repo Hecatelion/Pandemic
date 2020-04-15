@@ -33,7 +33,7 @@ public class Selection : MonoBehaviour
 			_die.isSelected = true;
 			dice.Add(_die);
 
-			Debug.Log("Dice selected");
+			Debug.Log("Dice selected : " + _die.faceType);
 		}
 	}
 

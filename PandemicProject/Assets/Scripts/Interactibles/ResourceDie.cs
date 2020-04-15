@@ -9,6 +9,9 @@ public class ResourceDie : PhysicsInteractible, IPickable
 	public bool isSelected = false;
 	public bool isStable = false;
 
+	float sleepingTimeToBeStable = 1f;
+	float sleepingTime = 0f;
+
 	Rigidbody rb;
 
 	//public Callback onStabilise = () => { };
@@ -25,13 +28,7 @@ public class ResourceDie : PhysicsInteractible, IPickable
 
 	void Update()
 	{
-		if (!isStable && rb.IsSleeping())
-		{
-			SetTypeFromFace();
-			isStable = true;
-
-			//onStabilise();
-		}
+		SleepCheck();
 	}
 
 	public void OnMouseDown()
@@ -46,10 +43,30 @@ public class ResourceDie : PhysicsInteractible, IPickable
 		}
 	}
 
-
 	void IPickable.Pick()
 	{
 		// pick
+	}
+
+	void SleepCheck()
+	{
+		if (!isStable)
+		{
+			if (sleepingTime > sleepingTimeToBeStable)
+			{
+				SetTypeFromFace();
+				isStable = true;
+				sleepingTime = 0f;
+			}
+			else
+			{
+				if (rb.IsSleeping())
+				{
+					sleepingTime += Time.deltaTime;
+				}
+			}
+			
+		}
 	}
 
 	public void TakeOutOfHand()
@@ -84,6 +101,7 @@ public class ResourceDie : PhysicsInteractible, IPickable
 	public void SetTypeFromFace()
 	{
 		faceType = GetTypeFromTransform(transform);
+		Debug.Log("face : " + faceType);
 	}
 
 	public static ResourceType GetTypeFromTransform(Transform _dieTransform) // must be tested
@@ -92,32 +110,33 @@ public class ResourceDie : PhysicsInteractible, IPickable
 		Vector3 dieUp = _dieTransform.up;
 		Vector3 dieRight = _dieTransform.right;
 
-		if (dieForward == Vector3.up) // front face
+		if (CustomMaths.Approximately(dieForward, Vector3.up)) // front face
 		{
 			return ResourceType.Vaccine;
 		} 
-		else if (dieForward == -Vector3.up) // back face
+		else if (CustomMaths.Approximately(dieForward, - Vector3.up)) // back face
 		{
 			return ResourceType.Food;
 		}
-		else if (dieUp == Vector3.up) // top face
+		else if (CustomMaths.Approximately(dieUp, Vector3.up)) // top face
 		{
 			return ResourceType.Power;
 		}
-		else if (dieUp == -Vector3.up) // bot face
+		else if (CustomMaths.Approximately(dieUp, -Vector3.up)) // bot face
 		{
 			return ResourceType.FirstAid;
 		}
-		else if (dieRight == Vector3.up) // right face
+		else if (CustomMaths.Approximately(dieRight, Vector3.up)) // right face
 		{
 			return ResourceType.Water;
 		}
-		else if (dieRight == -Vector3.up) // left face
+		else if (CustomMaths.Approximately(dieRight, -Vector3.up)) // left face
 		{
 			return ResourceType.Plane;
 		}
 		else
 		{
+			Debug.Log("no face, forward : " + dieForward);
 			return ResourceType.None;
 		}
 	}

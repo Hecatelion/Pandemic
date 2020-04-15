@@ -32,4 +32,9 @@ public class Supply : PhysicsInteractible, IPickable
 		AllowPhysics(true);
 		Unlock();
 	}
+
+	public void ReturnToHomeRoom()
+	{
+		SendToRoom(homeRoom);
+	}
 }

@@ -61,7 +61,7 @@ public class Lift : MonoBehaviour
 	public void SendSupply()
 	{
 		// supply sending
-		liftedSupply.SendToRoom(cargo);
+		cargo.ReceiveSupply(liftedSupply);
 
 		// lift emptying
 		liftedSupply = null;

@@ -8,7 +8,10 @@
 
 • board	-> • collisions
 
-3) - rooms -> all module // click interact  &  no condition [currentlty here]
+3) - rooms [currentlty here]
+	-> • supplies
+	-> bay
+	-> • waste
 
 - plane	-> moving
 
@@ -16,6 +19,7 @@
 	-> • module condition
 	-> • selection list
 	-> • throwing and getting resource type according to upward face
+	-> • hand module
 
 - players -> role attribution
 	  -> turn system
@@ -35,3 +39,11 @@
 	-> trash
 
 /////////////////////////////////////////
+
+	[Phase : Improvement]
+
+- dice -> use dot product to get face type of leaning dice
+	-> on throw : add torque velocity
+
+- ramps -> accept dice selection and try to fill multiple groups
+	-> if (bay.freespace < sending amount) sending amount = bay.freespace;

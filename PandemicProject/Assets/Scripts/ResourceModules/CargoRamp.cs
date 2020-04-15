@@ -2,30 +2,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RecyclingRamp : ResourceRamp
+public class CargoRamp : ResourceRamp
 {
-	WasteLadder wasteLadder;
+	Bay bay;
 
     void Start()
-	{
-		wasteLadder = FindObjectOfType<WasteLadder>();
-	}
+    {
+		bay = FindObjectOfType<Bay>();
+    }
 
     void Update()
-    { }
+    {
+
+	}
 
 	private void OnMouseDown()
 	{
 		TryCatchingDice(TheGameManager.instance.curPlayer.selection);
 	}
 
+	public override bool IsActivable()
+	{
+		return base.IsActivable() && bay.HasValidSupplies();
+	}
+
 	public override void Activate()
 	{
-		int wasteLevel = wasteLadder.wasteLevel;
-		wasteLevel -= GetHigherValue();
-		if (wasteLevel < 0) wasteLevel = 0;
-
-		wasteLadder.SetWasteLevel(wasteLevel);
+		bay.SendSupplies();
 
 		ReturnDiceToOwner();
 		Empty();

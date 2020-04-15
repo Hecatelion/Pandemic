@@ -19,7 +19,7 @@ public abstract class ResourceRamp : MonoBehaviour
 
 	public abstract void Activate();
 
-	public bool IsActivable()
+	public virtual bool IsActivable()
 	{
 		return GetHigherValue() > 0;
 	}
@@ -65,22 +65,30 @@ public abstract class ResourceRamp : MonoBehaviour
 		_selection.Flush();
 	}
 
-	// check if dice type and amount correspond to excpected ones
-	public bool TryCatchingDice(Selection _selection)
+	public bool AreTypeValid(List<ResourceDie> _dice)
 	{
-		_ = 0; // could be improved by accepting more dice than excpected, and try to fill multiple groups
+		if (type == ResourceType.Any) return true;
 
-		if (GetHigherFreeGroup().resourceNeeded != _selection.dice.Count)
-		{
-			return false;
-		}
-
-		foreach (var die in _selection.dice)
+		foreach (var die in _dice)
 		{
 			if (die.faceType != type)
 			{
 				return false;
 			}
+		}
+
+		return true;
+	}
+
+	public bool TryCatchingDice(Selection _selection)
+	{
+		_ = 0; // could be improved by accepting more dice than excpected, and try to fill multiple groups
+
+		// check if dice type and amount correspond to excpected ones
+		if (GetHigherFreeGroup().resourceNeeded != _selection.dice.Count || 
+			!AreTypeValid(_selection.dice))
+		{
+			return false;
 		}
 
 		CatchDice(_selection);
@@ -93,5 +101,25 @@ public abstract class ResourceRamp : MonoBehaviour
 		{
 			group.Empty();
 		}
+	}
+
+	public void ReturnDiceToOwner()
+	{
+		foreach (var die in GetDice())
+		{
+			die.ReturnToOwner();
+		}
+	}
+
+	public List<ResourceDie> GetDice()
+	{
+		List<ResourceDie> dice = new List<ResourceDie>();
+
+		foreach (var group in resourceGroups)
+		{
+			dice.AddRange(group.GetDice());
+		}
+
+		return dice;
 	}
 }

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // pattern Singleton
-public class TheDiceThrower : MonoBehaviour
+public class DiceThrower : MonoBehaviour
 {
-	public static TheDiceThrower instance;
+	public static DiceThrower instance;
 
 	[SerializeField] public GameObject box;
 	[SerializeField] public float throwForce = 5.0f;
@@ -48,8 +48,6 @@ public class TheDiceThrower : MonoBehaviour
 
 			die.GetComponent<Rigidbody>().AddForce(new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized * throwForce);
 			die.isStable = false;
-
-			Debug.Log("Die thrown");
 		}
 
 		StartCoroutine(WaitForResult());
@@ -71,15 +69,12 @@ public class TheDiceThrower : MonoBehaviour
 		}
 
 		dice.Clear();
-
-		Debug.Log("Dice returned to owner");
 	}
 
 	public IEnumerator WaitForResult()
 	{
 		bool areDiceStable = false;
 
-		Debug.Log("Waiting for results");
 		yield return new WaitForSeconds(0.2f);
 
 		while (!areDiceStable)
