@@ -109,10 +109,9 @@ public class ResourceDie : PhysicsInteractible, IPickable
 
 	public void SetTypeFromFace()
 	{
-		faceType = GetTypeFromTransform(transform);
-		Debug.Log("face : " + faceType);
+		faceType = GetTypeFromTransform_V2(transform);
 	}
-
+	/*
 	public static ResourceType GetTypeFromTransform(Transform _dieTransform) // must be tested
 	{
 		Vector3 dieForward = _dieTransform.forward;
@@ -147,6 +146,87 @@ public class ResourceDie : PhysicsInteractible, IPickable
 		{
 			Debug.Log("no face, forward : " + dieForward);
 			return ResourceType.None;
+		}
+	}
+	*/
+	public static ResourceType GetTypeFromTransform_V2(Transform _dieTransform) // must be tested
+	{
+		Vector3 dieForward = _dieTransform.forward;
+		Vector3 dieUp = _dieTransform.up;
+		Vector3 dieRight = _dieTransform.right;
+
+		ResourceType type = ResourceType.None;
+		float angle = 1000f;
+		float testedAngle = 1000f;
+
+		// front face
+		testedAngle = Mathf.Abs(Vector3.Angle(dieForward, Vector3.up)); 
+		if (testedAngle < angle)
+		{
+			angle = testedAngle;
+			type = ResourceType.Vaccine;
+		}
+
+		// back face
+		testedAngle = Mathf.Abs(Vector3.Angle(dieForward, Vector3.down)); 
+		if (testedAngle < angle)
+		{
+			angle = testedAngle;
+			type = ResourceType.Food;
+		}
+
+		// top face
+		testedAngle = Mathf.Abs(Vector3.Angle(dieUp, Vector3.up)); 
+		if (testedAngle < angle)
+		{
+			angle = testedAngle;
+			type = ResourceType.Power;
+		}
+
+		// bot face
+		testedAngle = Mathf.Abs(Vector3.Angle(dieUp, Vector3.down)); 
+		if (testedAngle < angle)
+		{
+			angle = testedAngle;
+			type = ResourceType.FirstAid;
+		}
+
+		// right face
+		testedAngle = Mathf.Abs(Vector3.Angle(dieRight, Vector3.up)); 
+		if (testedAngle < angle)
+		{
+			angle = testedAngle;
+			type = ResourceType.Water;
+		}
+
+		// left face
+		testedAngle = Mathf.Abs(Vector3.Angle(dieRight, Vector3.down)); 
+		if (testedAngle < angle)
+		{
+			angle = testedAngle;
+			type = ResourceType.Plane;
+		}
+
+		// none
+		if (type == ResourceType.None) Debug.LogError("can't tell cur face type");
+
+		return type;
+	}
+
+	public void Redress()
+	{
+		transform.rotation = Quaternion.identity;
+
+		switch (faceType)
+		{
+			case ResourceType.Vaccine:		transform.forward = Vector3.up;			break;
+			case ResourceType.Food:			transform.forward = Vector3.down;		break;
+			case ResourceType.Power:		transform.up	  = Vector3.up;			break;
+			case ResourceType.FirstAid:		transform.up	  = Vector3.down;		break;
+			case ResourceType.Water:		transform.right   = Vector3.up;			break;
+			case ResourceType.Plane:		transform.right   = Vector3.down;		break;
+
+			case ResourceType.None:			Debug.LogError("this die doesn't have face type.");		break;
 		}
 	}
 

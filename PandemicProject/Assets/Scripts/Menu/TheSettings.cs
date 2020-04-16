@@ -8,7 +8,10 @@ public class TheSettings : MonoBehaviour
 	public static TheSettings instance;
 
 	public int nbPlayer = 0;
+	public float sandtimerDuration = 120;
+
 	public Slider slider;
+	public InputField field;
 
     void Start()
     {
@@ -23,5 +26,6 @@ public class TheSettings : MonoBehaviour
 		}
 
 		instance.slider = FindObjectOfType<Slider>();
+		instance.field = FindObjectOfType<InputField>();
 	}
 }

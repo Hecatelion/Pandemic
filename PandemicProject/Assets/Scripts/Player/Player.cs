@@ -61,8 +61,6 @@ public class Player : MonoBehaviour
 
 	public void EndTurn()
 	{
-		Debug.Log(name + " start turn");
-
 		// disallow dice 
 		foreach (var die in hand.GetDice())
 		{

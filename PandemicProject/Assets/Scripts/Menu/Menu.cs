@@ -11,13 +11,12 @@ public class Menu : MonoBehaviour
     }
 
     void Update()
-    {
-        
-    }
+    { }
 
 	public void UI_Play()
 	{
 		TheSettings.instance.nbPlayer = (int)TheSettings.instance.slider.value;
+		TheSettings.instance.sandtimerDuration = (TheSettings.instance.field.text != "") ? int.Parse(TheSettings.instance.field.text) : 120;
 		SceneManager.LoadScene(1);
 	}
 

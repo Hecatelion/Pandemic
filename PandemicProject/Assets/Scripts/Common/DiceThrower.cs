@@ -38,11 +38,10 @@ public class DiceThrower : MonoBehaviour
 
 	private void OnMouseDown()
 	{
-		if (TheGameManager.instance.curPlayer.nbThrow > 0)
+		if (TheGameManager.instance.curPlayer.nbThrow > 0 && TheGameManager.instance.curPlayer.selection.dice.Count > 0)
 		{
 			TheGameManager.instance.curPlayer.nbThrow--;
 			ThrowSelection();
-			Debug.Log("nbThrow left : " + TheGameManager.instance.curPlayer.nbThrow);
 		}
 	}
 
@@ -104,6 +103,7 @@ public class DiceThrower : MonoBehaviour
 
 		ui.gameObject.SetActive(true);
 
+		RedressDice();
 		onThrowEnd(dice);
 
 		if (!_returnToOwner)
@@ -131,6 +131,14 @@ public class DiceThrower : MonoBehaviour
 		foreach (var die in _dice)
 		{
 			dice.Add(die);
+		}
+	}
+
+	void RedressDice()
+	{
+		foreach (var die in dice)
+		{
+			die.Redress();
 		}
 	}
 }

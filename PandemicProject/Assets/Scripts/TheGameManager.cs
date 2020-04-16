@@ -23,7 +23,7 @@ public class TheGameManager : MonoBehaviour
 	[SerializeField] public int nbPlayer = 2;
 	[SerializeField] public int nbCityAtStart = 2;
 	[SerializeField] public int nbCityLeft = 3;
-	[SerializeField] public float timerDuration = 40f;
+	[SerializeField] public float timerDuration = 120f;
 	[SerializeField] public float pauseDuration = 5f;
 
 	public float timer = 0;
@@ -100,6 +100,7 @@ public class TheGameManager : MonoBehaviour
 
 		// players management init
 		nbPlayer = TheSettings.instance.nbPlayer;
+		timerDuration = TheSettings.instance.sandtimerDuration;
 
 		List<Player> participatingPlayers = new List<Player>();
 
@@ -124,7 +125,6 @@ public class TheGameManager : MonoBehaviour
 
 	public void StartGame()
 	{
-		Debug.Log("Game Strating !");
 		gameState = GameState.Running;
 
 		StartCoroutine(StartNewCycleIn(3, nbCityAtStart, true));
