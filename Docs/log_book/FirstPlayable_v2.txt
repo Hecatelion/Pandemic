@@ -50,27 +50,27 @@
 /////////////////////////////////////////
 
 		[••• UI]
+• all UI
+
+• improve graph (dice, pawns, etc.)
 
 /////////////////////////////////////////
 
-	[Bugs : Blocking]
+	[••• Bugs : Blocking]
 
-- dice : onThrow -> sometimes go out of box 
-			-> must put rand position in box
+• dice : onThrow -> • sometimes go out of box 
+			-> • must put rand position in box
 
-		 -> sometimes can't deduce facetype cause is leaning 
-			-> must dot to know the upper face
+		 -> • sometimes can't deduce facetype cause is leaning 
 
 /////////////////////////////////////////
 
 	[Phase : Improvement]
 
-- dice -> use dot product to get face type of leaning dice
-	-> on throw : add torque velocity
+- dice 	-> • use dot product to get face type of leaning dice
+	-> • on throw : add torque velocity
 	-> Lock() when on modules or role card
 	-> drag'n'drop
-
-- split AssignTo(Transform) in many AssignTo(Type) to make do specific things
 
 - supply -> select supplies to send
 	 -> accept dice selection and try to fill multiple groups

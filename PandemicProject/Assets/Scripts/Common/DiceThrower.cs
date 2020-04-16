@@ -10,6 +10,7 @@ public class DiceThrower : MonoBehaviour
 
 	[SerializeField] public GameObject box;
 	[SerializeField] public float throwForce = 5.0f;
+	[SerializeField] public float torqueForce = 5.0f;
 
 	List<ResourceDie> dice = new List<ResourceDie>();
 
@@ -55,7 +56,11 @@ public class DiceThrower : MonoBehaviour
 			die.AllowPhysics();
 			die.Lock();
 
+			// rand pos, force, torque
+			die.transform.localPosition = new Vector3(Random.Range(-4f, 4f), Random.Range(-1.5f, 1.5f), Random.Range(-4f, 4f));
 			die.GetComponent<Rigidbody>().AddForce(new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized * throwForce);
+			die.GetComponent<Rigidbody>().AddTorque(new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized * torqueForce);
+
 			die.isStable = false;
 		}
 

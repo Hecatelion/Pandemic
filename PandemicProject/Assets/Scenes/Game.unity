@@ -10537,6 +10537,11 @@ PrefabInstance:
       propertyPath: throwForce
       value: 500
       objectReference: {fileID: 0}
+    - target: {fileID: 7785472465763983847, guid: 08ead56702c1e5e47a5d6c93c1904809,
+        type: 3}
+      propertyPath: torqueForce
+      value: 500
+      objectReference: {fileID: 0}
     - target: {fileID: 7785472465763983845, guid: 08ead56702c1e5e47a5d6c93c1904809,
         type: 3}
       propertyPath: m_Center.y
