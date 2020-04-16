@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public enum GameState
 {
@@ -30,6 +31,8 @@ public class TheGameManager : MonoBehaviour
 	[Header("UI")]
 	[SerializeField] public Text playerNameUI;
 	[SerializeField] public HQDisplayer hqDisplayer;
+	[SerializeField] public Button selectionButton;
+	[SerializeField] public Button turnButton;
 
 	[Header("Prog")]
 	[SerializeField] public List<Player> players;
@@ -59,14 +62,6 @@ public class TheGameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.KeypadEnter) && gameState == GameState.NotStarted)
 		{
 			StartGame();
-		}
-        if (Input.GetKeyDown(KeyCode.Space) && gameState == GameState.Running)
-		{
-			NextTurn();
-		}
-        if (Input.GetKeyDown(KeyCode.KeypadPlus) && gameState == GameState.Running)
-		{
-			ActivateRandomCity();
 		}
 
 		if (gameState == GameState.Running && !isGamePaused)
@@ -202,5 +197,33 @@ public class TheGameManager : MonoBehaviour
 	{
 		hqDisplayer.gameObject.SetActive(_b);
 		playerNameUI.gameObject.SetActive(_b);
+		selectionButton.gameObject.SetActive(_b);
+		turnButton.gameObject.SetActive(_b);
+	}
+
+	public void UIEndTurnButton()
+	{
+		NextTurn();
+	}
+
+	public void UISelectionButton()
+	{
+		if (UIButtonShouldSelect())
+		{
+			curPlayer.selection.SelectAllDice();
+		}
+		else
+		{
+			curPlayer.selection.Flush();
+		}
+	}
+
+	public bool UIButtonShouldSelect()
+	{
+		ResourceDie[] handDice = curPlayer.hand.GetDice();
+
+		ResourceDie[] handDiceNotSelected = (from die in handDice where !die.isSelected select die).ToArray();
+
+		return handDiceNotSelected.Count() > 0;
 	}
 }
