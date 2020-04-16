@@ -6,8 +6,10 @@ public class CargoRamp : ResourceRamp
 {
 	Bay bay;
 
-    void Start()
-    {
+    new void Start()
+	{
+		base.Start();
+
 		bay = FindObjectOfType<Bay>();
     }
 

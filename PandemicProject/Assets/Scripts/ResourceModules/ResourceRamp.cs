@@ -8,11 +8,14 @@ public abstract class ResourceRamp : MonoBehaviour
 {
 	[SerializeField] ResourceType type = ResourceType.None;
 
+	public Room room;
 	public bool isFull = false;
 	[SerializeField] public List<ResourceGroup> resourceGroups = new List<ResourceGroup>();
 
-	void Start()
-	{ }
+	protected void Start()
+	{
+		room = GetComponentInParent<Room>();
+	}
 
 	void Update()
 	{ }
@@ -81,18 +84,17 @@ public abstract class ResourceRamp : MonoBehaviour
 	}
 
 	public bool TryCatchingDice(Selection _selection)
-	{
-		_ = 0; // could be improved by accepting more dice than excpected, and try to fill multiple groups
-
+	{		
 		// check if dice type and amount correspond to excpected ones
-		if (GetHigherFreeGroup().resourceNeeded != _selection.dice.Count || 
-			!AreTypeValid(_selection.dice))
+		if (TheGameManager.instance.curPlayer.pawn.curRoom == room &&			// is player in this ramp's room
+			GetHigherFreeGroup().resourceNeeded == _selection.dice.Count &&     // is dice amount valid 
+			AreTypeValid(_selection.dice))	                                    // is dice type valid
 		{
-			return false;
+			CatchDice(_selection);
+			return true;
 		}
 
-		CatchDice(_selection);
-		return true;
+		return false;
 	}
 
 	public void Empty()

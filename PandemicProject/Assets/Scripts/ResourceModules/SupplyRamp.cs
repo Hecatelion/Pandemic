@@ -8,8 +8,10 @@ public class SupplyRamp : ResourceRamp
 
 	WasteLadder wasteLadder;
 
-	void Start()
-    {
+	new void Start()
+	{
+		base.Start();
+
 		wasteLadder = FindObjectOfType<WasteLadder>();
 
 		lift.onDeactivation += GenerateWaste;

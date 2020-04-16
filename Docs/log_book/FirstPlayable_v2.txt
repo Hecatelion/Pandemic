@@ -3,8 +3,7 @@
 
 /////////////////////////////////////////
 
-	[Phase : First Playable]
-
+	[••• Phase : First Playable]
 
 • board	-> • collisions
 
@@ -20,37 +19,51 @@
 	-> • throwing and getting resource type according to upward face
 	-> • hand module
 
-- players -> • role attribution
+• players -> • role attribution
 	  -> • turn system
 	  -> • pawn movement
 
-- cities  -> • cities on board
-	  -> HQ cities queue
+• cities  -> • cities on board
+	  -> • HQ cities queue
 	  -> • cargo drop match resources 
 
-- timer system	-> timer
-		-> pause
-		-> tokens
-		-> city spawning
+• timer system	-> • timer
+		-> • pause
+		-> • tokens
+		-> • city spawning
  
 (- cards -> graphics
 	-> draw
 	-> zoom
 	-> trash)
 
+• win / lose // must be tested
+
 /////////////////////////////////////////
 
-	[Restriction to add]
+	[••• Restriction to add]
 
-- use modules when pawn in room
+• use modules when pawn in room
 
 • 3 dice throw max
 
 /////////////////////////////////////////
 
-	[Phase : Improvement]
+		[UI]
 
-- UI
+/////////////////////////////////////////
+
+	[Bugs : Blocking]
+
+- dice : onThrow -> sometimes go out of box 
+			-> must put rand position in box
+
+		 -> sometimes can't deduce facetype cause is leaning 
+			-> must dot to know the upper face
+
+/////////////////////////////////////////
+
+	[Phase : Improvement]
 
 - dice -> use dot product to get face type of leaning dice
 	-> on throw : add torque velocity

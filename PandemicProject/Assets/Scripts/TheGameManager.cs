@@ -2,15 +2,37 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum GameState
+{
+	None = -1,
+	NotStarted,
+	Running,
+	Win,
+	Lose
+}
+
 public class TheGameManager : MonoBehaviour
 {
 	public static TheGameManager instance;
 
-	public int nbPlayer = 2;
+	[Header("GameParameters")]
+	[SerializeField] public int token = 3;
+	[SerializeField] public int nbPlayer = 2;
+	[SerializeField] public int nbCityAtStart = 2;
+	[SerializeField] public int nbCityLeft = 3;
+	[SerializeField] public float timerDuration = 40f;
+	[SerializeField] public float pauseDuration = 5f;
+
+	public float timer = 0;
+	public int nbCityToRescue = 999;
+
+	[Header("Prog")]
 	[SerializeField] public List<Player> players;
 	public Player curPlayer;
 	int curPlayerIndex = 0;
-	bool hasGameStarted = false;
+
+	public GameState gameState = GameState.NotStarted;
+	bool isGamePaused = false;
 
 	void Start()
 	{
@@ -28,22 +50,41 @@ public class TheGameManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.KeypadEnter) && !hasGameStarted)
+        if (Input.GetKeyDown(KeyCode.KeypadEnter) && gameState == GameState.NotStarted)
 		{
 			StartGame();
 		}
-        if (Input.GetKeyDown(KeyCode.Space) && hasGameStarted)
+        if (Input.GetKeyDown(KeyCode.Space) && gameState == GameState.Running)
 		{
 			NextTurn();
 		}
-        if (Input.GetKeyDown(KeyCode.KeypadPlus) && hasGameStarted)
+        if (Input.GetKeyDown(KeyCode.KeypadPlus) && gameState == GameState.Running)
 		{
-			TheCitiesManager.instance.ActivateRandomCity();
+			ActivateRandomCity();
+		}
+
+		if (gameState == GameState.Running && !isGamePaused)
+		{
+			timer -= Time.deltaTime;
+
+			if (timer < 0)
+			{
+				if (token == 0)
+				{
+					Lose();
+				}
+				else
+				{
+					StartCoroutine(StartNewCycleIn(pauseDuration, 1));
+				}
+			}
 		}
     }
 
 	void Init()
 	{
+		nbCityToRescue = nbCityAtStart + nbCityLeft;
+
 		List<Player> participatingPlayers = new List<Player>();
 
 		for (int i = 0; i < players.Count; i++)
@@ -65,8 +106,10 @@ public class TheGameManager : MonoBehaviour
 	public void StartGame()
 	{
 		Debug.Log("Game Strating !");
-		hasGameStarted = true;
+		gameState = GameState.Running;
 		SetTurn(curPlayerIndex);
+
+		StartCoroutine(StartNewCycleIn(3, nbCityAtStart));
 	}
 
 	public void NextTurn()
@@ -85,8 +128,58 @@ public class TheGameManager : MonoBehaviour
 		curPlayer.StartTurn();
 	}
 
-	public void ActivateCity()
+	public void ActivateRandomCity()
 	{
+		TheCitiesManager.instance.ActivateRandomCity();
+	}
 
+	public IEnumerator StartNewCycleIn(float _pauseDuration, int _nbCity)
+	{
+		Debug.Log("new cycle in " + _pauseDuration + " sec");
+
+		// pause
+		SetPause(true);
+		yield return new WaitForSeconds(_pauseDuration);
+		SetPause(false);
+
+		StartNewCycle(_nbCity);
+
+		yield return null;
+	}
+
+	public void SetPause(bool _on)
+	{
+		// blackScreen.SetActive(_on)
+		isGamePaused = _on;
+	}
+
+	public void StartNewCycle(int _nbCity)
+	{
+		for (int i = 0; i < _nbCity; i++)
+		{
+			ActivateRandomCity();
+		}
+
+		TurnNewSandtimer();
+
+		Debug.Log("starting new cycle, nb token left : " + token);
+	}
+
+	public void TurnNewSandtimer()
+	{
+		token--;
+		timer = timerDuration;
+	}
+
+	public void Lose()
+	{
+		gameState = GameState.Lose;
+		Debug.Log("Lose ! (Not implemented yet");
+	}
+
+	public void Win()
+	{
+		gameState = GameState.Win;
+		Debug.Log("Win ! (Not implemented yet");
 	}
 }

@@ -6,8 +6,10 @@ public class RecyclingRamp : ResourceRamp
 {
 	WasteLadder wasteLadder;
 
-    void Start()
+    new void Start()
 	{
+		base.Start();
+
 		wasteLadder = FindObjectOfType<WasteLadder>();
 	}
 

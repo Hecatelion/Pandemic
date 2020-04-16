@@ -29,10 +29,7 @@ public class WasteLadder : MonoBehaviour
 	}
 
     void Update()
-    {
-		// if (wasteLevel > 10) Lose();
-		_ = 0;
-    }
+    { }
 
 	public void StartWasteGeneration(List<ResourceDie> _dice)
 	{
@@ -66,5 +63,8 @@ public class WasteLadder : MonoBehaviour
 
 		// move waste pawn
 		wastePawn.transform.position = pawnPositions[wasteLevel];
+
+		// lose check
+		if (wasteLevel > 10) TheGameManager.instance.Lose();
 	}
 }

@@ -45,8 +45,6 @@ public class City : MonoBehaviour
     {
 		airplane = FindObjectOfType<Airplane>();
 		resourcesNeededAmount = GetResourceAmount(resourcesNeeded);
-
-		//Activate();
     }
 
     void Update()
@@ -128,6 +126,13 @@ public class City : MonoBehaviour
 	{
 		Destroy(card.gameObject);
 		state = CityState.Rescued;
+		TheGameManager.instance.nbCityToRescue--;
+		TheGameManager.instance.token++;
+
+		if (TheGameManager.instance.nbCityToRescue < 1)
+		{
+			TheGameManager.instance.Win();
+		}
 	}
 
 	int DistanceWith(City _city)
