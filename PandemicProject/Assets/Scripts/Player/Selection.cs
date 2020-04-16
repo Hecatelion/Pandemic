@@ -5,6 +5,7 @@ using UnityEngine;
 public class Selection : MonoBehaviour
 {
 	public List<ResourceDie> dice;
+	public Player player;
 
 	void Start()
     {
@@ -53,6 +54,14 @@ public class Selection : MonoBehaviour
 		foreach (var die in dice)
 		{
 			die.TakeOutOfHand();
+		}
+	}
+
+	public void SelectAllDice()
+	{
+		foreach (var die in player.hand.GetDice())
+		{
+			Select(die);
 		}
 	}
 }

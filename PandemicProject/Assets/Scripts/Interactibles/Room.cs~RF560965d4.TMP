@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 
 public class Room : MonoBehaviour
 {
@@ -72,9 +71,8 @@ public class Room : MonoBehaviour
 		return dist;
 	}
 
-	public static Room FindRoomOfType(RoomType _type)
+	public static Room FindRoomOfType()
 	{
-		Room[] rooms = FindObjectsOfType<Room>();
-		return (from room in rooms where room.roomType == _type select room).ToArray()[0];
+
 	}
 }

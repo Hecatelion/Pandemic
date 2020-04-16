@@ -41,4 +41,9 @@ public class DiceHand : MonoBehaviour
 		Debug.Log("dice hand : no free slot");
 		return -1;
 	}
+
+	public ResourceDie[] GetDice()
+	{
+		return (from slot in slots where !slot.isFree select slot.die).ToArray();
+	}
 }

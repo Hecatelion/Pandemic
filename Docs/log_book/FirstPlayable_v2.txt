@@ -11,7 +11,6 @@
 • rooms -> • supplies
 	-> • bay
 	-> • waste : wasteLevel pawn
-	-> player pawn restriction
 
 • plane	-> • moving
 
@@ -21,8 +20,8 @@
 	-> • throwing and getting resource type according to upward face
 	-> • hand module
 
-- players -> role attribution
-	  -> turn system
+- players -> • role attribution
+	  -> • turn system
 	  -> • pawn movement
 
 - cities  -> • cities on board
@@ -38,6 +37,14 @@
 	-> draw
 	-> zoom
 	-> trash)
+
+/////////////////////////////////////////
+
+	[Restriction to add]
+
+- use modules when pawn in room
+
+• 3 dice throw max
 
 /////////////////////////////////////////
 

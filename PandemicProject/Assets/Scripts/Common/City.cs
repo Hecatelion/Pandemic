@@ -24,7 +24,7 @@ public enum CityCardPos
 
 public class City : MonoBehaviour
 {
-	[SerializeField] public string name = "default_name";
+	//[SerializeField] public string name = "default_name";
 	[SerializeField] public City previous;
 	[SerializeField] public City next;
 
@@ -46,7 +46,7 @@ public class City : MonoBehaviour
 		airplane = FindObjectOfType<Airplane>();
 		resourcesNeededAmount = GetResourceAmount(resourcesNeeded);
 
-		Activate();
+		//Activate();
     }
 
     void Update()
@@ -78,7 +78,7 @@ public class City : MonoBehaviour
 		return resourcesAmount;
 	}
 
-	void Activate()
+	public void Activate()
 	{
 		card = Instantiate(cityCardPrefab, transform).GetComponent<CityCard>();
 		card.meshRenderer.material = cardMat;

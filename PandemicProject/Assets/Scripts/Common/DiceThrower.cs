@@ -33,10 +33,15 @@ public class DiceThrower : MonoBehaviour
 
 	private void OnMouseDown()
 	{
-		ThrowSelection();
+		if (TheGameManager.instance.curPlayer.nbThrow > 0)
+		{
+			TheGameManager.instance.curPlayer.nbThrow--;
+			ThrowSelection();
+			Debug.Log("nbThrow left : " + TheGameManager.instance.curPlayer.nbThrow);
+		}
 	}
 
-	public void Throw(List<ResourceDie> _dice, bool _consumeDice = true)
+	public void Throw(List<ResourceDie> _dice, bool _returnToOwner = false)
 	{
 		GetDice(_dice);
 
@@ -50,14 +55,14 @@ public class DiceThrower : MonoBehaviour
 			die.isStable = false;
 		}
 
-		StartCoroutine(WaitForResult(_consumeDice));
+		StartCoroutine(WaitForResult(_returnToOwner));
 	}
 
 	public void ThrowSelection()
 	{
 		Selection selection = TheGameManager.instance.curPlayer.selection;
 		selection.TakeDiceOutOfHand();
-		Throw(selection.dice, false);
+		Throw(selection.dice, true);
 		selection.Flush();
 	}
 
@@ -66,7 +71,7 @@ public class DiceThrower : MonoBehaviour
 		dice.Clear();
 	}
 
-	public IEnumerator WaitForResult(bool _consumeDice)
+	public IEnumerator WaitForResult(bool _returnToOwner)
 	{
 		bool areDiceStable = false;
 
@@ -90,7 +95,7 @@ public class DiceThrower : MonoBehaviour
 
 		onThrowEnd(dice);
 
-		if (_consumeDice)
+		if (!_returnToOwner)
 		{
 			foreach (var die in dice)
 			{

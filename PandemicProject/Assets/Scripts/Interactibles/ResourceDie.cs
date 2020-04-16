@@ -9,6 +9,8 @@ public class ResourceDie : PhysicsInteractible, IPickable
 	public bool isSelected = false;
 	public bool isStable = false;
 
+	public bool isOnCard = false;
+
 	public bool hasBeenUsedThisTurn = false;
 
 	float sleepingTimeToBeStable = 1f;
@@ -23,7 +25,7 @@ public class ResourceDie : PhysicsInteractible, IPickable
 		owner = transform.parent.GetComponent<Player>();
 		rb = GetComponent<Rigidbody>();
 
-		ReturnToOwner();
+		PutOnCard();
 
 		SetTypeFromFace();
 	}
@@ -78,6 +80,7 @@ public class ResourceDie : PhysicsInteractible, IPickable
 
 	public void ReturnToOwner()
 	{
+		isOnCard = false;
 		owner.hand.Catch(this);
 	}
 
@@ -150,6 +153,7 @@ public class ResourceDie : PhysicsInteractible, IPickable
 
 	public void PutOnCard()
 	{
+		isOnCard = true;
 		AssignTo(owner.card.transform);
 		AllowPhysics(false);
 		Lock();
