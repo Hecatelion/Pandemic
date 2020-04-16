@@ -42,8 +42,6 @@ public class Player : MonoBehaviour
 
 	public void StartTurn()
 	{
-		Debug.Log(name + " start turn");
-
 		// allow dice
 		foreach (var die in dice)
 		{

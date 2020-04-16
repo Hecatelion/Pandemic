@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System.Linq;
 
 public enum GameState
@@ -33,6 +34,9 @@ public class TheGameManager : MonoBehaviour
 	[SerializeField] public HQDisplayer hqDisplayer;
 	[SerializeField] public Button selectionButton;
 	[SerializeField] public Button turnButton;
+	[SerializeField] public GameObject pauseScreen;
+	[SerializeField] public GameObject winScreen;
+	[SerializeField] public GameObject loseScreen;
 
 	[Header("Prog")]
 	[SerializeField] public List<Player> players;
@@ -50,6 +54,8 @@ public class TheGameManager : MonoBehaviour
 			instance = this;
 
 			Init();
+
+			StartGame();
 		}
 		else
 		{
@@ -59,9 +65,13 @@ public class TheGameManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.KeypadEnter) && gameState == GameState.NotStarted)
+        if (Input.GetKeyDown(KeyCode.KeypadEnter) && gameState == GameState.Running)
 		{
-			StartGame();
+			Win();
+		}
+        if (Input.GetKeyDown(KeyCode.Space) && gameState == GameState.Running)
+		{
+			Lose();
 		}
 
 		if (gameState == GameState.Running && !isGamePaused)
@@ -88,6 +98,9 @@ public class TheGameManager : MonoBehaviour
 		token++;
 		nbCityToRescue = nbCityAtStart + nbCityLeft;
 
+		// players management init
+		nbPlayer = TheSettings.instance.nbPlayer;
+
 		List<Player> participatingPlayers = new List<Player>();
 
 		for (int i = 0; i < players.Count; i++)
@@ -105,6 +118,7 @@ public class TheGameManager : MonoBehaviour
 		players.Clear();
 		players = participatingPlayers;
 
+		// UI
 		UISetActive(false);
 	}
 
@@ -112,15 +126,13 @@ public class TheGameManager : MonoBehaviour
 	{
 		Debug.Log("Game Strating !");
 		gameState = GameState.Running;
-		SetTurn(curPlayerIndex);
 
-		StartCoroutine(StartNewCycleIn(3, nbCityAtStart));
+		StartCoroutine(StartNewCycleIn(3, nbCityAtStart, true));
 		UISetActive(true);
 	}
 
 	public void NextTurn()
 	{
-		Debug.Log("Next Turn !");
 		curPlayer.EndTurn();
 		curPlayerIndex++;
 		if (curPlayerIndex == nbPlayer) curPlayerIndex = 0;
@@ -142,24 +154,30 @@ public class TheGameManager : MonoBehaviour
 		TheCitiesManager.instance.ActivateRandomCity();
 	}
 
-	public IEnumerator StartNewCycleIn(float _pauseDuration, int _nbCity)
+	public IEnumerator StartNewCycleIn(float _pauseDuration, int _nbCity, bool _isFirstTurn = false)
 	{
-		Debug.Log("new cycle in " + _pauseDuration + " sec");
-
 		// pause
 		SetPause(true);
 		yield return new WaitForSeconds(_pauseDuration);
 		SetPause(false);
 
+		// starting cycle
 		StartNewCycle(_nbCity);
+
+		if (_isFirstTurn)
+		{
+			yield return new WaitForSeconds(1);
+
+			SetTurn(curPlayerIndex);
+		}
 
 		yield return null;
 	}
 
 	public void SetPause(bool _on)
 	{
-		// blackScreen.SetActive(_on)
 		isGamePaused = _on;
+		pauseScreen.SetActive(_on);
 	}
 
 	public void StartNewCycle(int _nbCity)
@@ -170,8 +188,6 @@ public class TheGameManager : MonoBehaviour
 		}
 
 		TurnNewSandtimer();
-
-		Debug.Log("starting new cycle, nb token left : " + token);
 	}
 
 	public void TurnNewSandtimer()
@@ -184,13 +200,17 @@ public class TheGameManager : MonoBehaviour
 	public void Lose()
 	{
 		gameState = GameState.Lose;
-		Debug.Log("Lose ! (Not implemented yet");
+		loseScreen.SetActive(true);
+
+		StartCoroutine(GoToMenuIn(2));
 	}
 
 	public void Win()
 	{
 		gameState = GameState.Win;
-		Debug.Log("Win ! (Not implemented yet");
+		winScreen.SetActive(true);
+
+		StartCoroutine(GoToMenuIn(2));
 	}
 
 	public void UISetActive(bool _b)
@@ -201,12 +221,12 @@ public class TheGameManager : MonoBehaviour
 		turnButton.gameObject.SetActive(_b);
 	}
 
-	public void UIEndTurnButton()
+	public void UI_EndTurnButton()
 	{
 		NextTurn();
 	}
 
-	public void UISelectionButton()
+	public void UI_SelectionButton()
 	{
 		if (UIButtonShouldSelect())
 		{
@@ -225,5 +245,18 @@ public class TheGameManager : MonoBehaviour
 		ResourceDie[] handDiceNotSelected = (from die in handDice where !die.isSelected select die).ToArray();
 
 		return handDiceNotSelected.Count() > 0;
+	}
+
+	public void UI_GoToMenu()
+	{
+		SceneManager.LoadScene(0);
+	}
+
+	IEnumerator GoToMenuIn(float _duration)
+	{
+		yield return new WaitForSeconds(_duration);
+
+		SceneManager.LoadScene(0);
+		yield return null;
 	}
 }

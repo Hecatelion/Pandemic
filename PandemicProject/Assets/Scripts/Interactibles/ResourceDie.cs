@@ -110,7 +110,7 @@ public class ResourceDie : PhysicsInteractible, IPickable
 	public void SetTypeFromFace()
 	{
 		faceType = GetTypeFromTransform(transform);
-		//Debug.Log("face : " + faceType);
+		Debug.Log("face : " + faceType);
 	}
 
 	public static ResourceType GetTypeFromTransform(Transform _dieTransform) // must be tested
