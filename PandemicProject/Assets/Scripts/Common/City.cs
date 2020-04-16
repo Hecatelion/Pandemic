@@ -59,8 +59,6 @@ public class City : MonoBehaviour
 		{
 			airplane.MoveTo(this);
 			airplane.movementAllowed = 0;
-
-			Debug.Log("Airplane movement allowed : " + airplane.movementAllowed);
 		}
 	}
 
@@ -128,6 +126,7 @@ public class City : MonoBehaviour
 		state = CityState.Rescued;
 		TheGameManager.instance.nbCityToRescue--;
 		TheGameManager.instance.token++;
+		TheGameManager.instance.hqDisplayer.tokenUI.text = TheGameManager.instance.token.ToString();
 
 		if (TheGameManager.instance.nbCityToRescue < 1)
 		{

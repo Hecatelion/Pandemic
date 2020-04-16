@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System.Linq;
 
 public class Airplane : Interactible
@@ -8,8 +9,13 @@ public class Airplane : Interactible
 	public City curCity;
 	public int movementAllowed = 0;
 
+	Text ui;
+
     void Start()
     {
+		ui = GetComponentInChildren<Text>();
+		ui.gameObject.SetActive(false);
+
 		MoveTo(curCity);
     }
 
@@ -23,7 +29,9 @@ public class Airplane : Interactible
 		List<ResourceDie> planeDice = (from die in TheGameManager.instance.curPlayer.selection.dice where die.faceType == ResourceType.Plane select die).ToList();
 
 		movementAllowed += planeDice.Count;
-		Debug.Log("Airplane's pawn movement allowed : " + movementAllowed);
+
+		ui.gameObject.SetActive(true);
+		ui.text = movementAllowed.ToString();
 
 		foreach (var die in planeDice)
 		{
@@ -37,5 +45,7 @@ public class Airplane : Interactible
 	{
 		transform.position = _city.transform.position;
 		curCity = _city;
+
+		ui.gameObject.SetActive(false);
 	}
 }

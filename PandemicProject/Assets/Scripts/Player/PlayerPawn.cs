@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerPawn : Interactible
 {
@@ -8,10 +9,13 @@ public class PlayerPawn : Interactible
 	public Room curRoom;
 	public Player player;
 
+	Text ui;
+
 	void Start()
-    {
-        
-    }
+	{
+		ui = GetComponentInChildren<Text>();
+		ui.gameObject.SetActive(false);
+	}
 
     void Update()
     {
@@ -34,7 +38,8 @@ public class PlayerPawn : Interactible
 			movementAllowed++;
 		}
 
-		Debug.Log("Player's pawn movement allowed : " + movementAllowed);
+		ui.gameObject.SetActive(true);
+		ui.text = movementAllowed.ToString();
 
 		_selection.Flush();
 	}
@@ -43,5 +48,7 @@ public class PlayerPawn : Interactible
 	{
 		curRoom = _room;
 		transform.position = curRoom.transform.position;
+
+		ui.gameObject.SetActive(false);
 	}
 }

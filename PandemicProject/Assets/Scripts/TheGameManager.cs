@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum GameState
 {
@@ -26,8 +27,13 @@ public class TheGameManager : MonoBehaviour
 	public float timer = 0;
 	public int nbCityToRescue = 999;
 
+	[Header("UI")]
+	[SerializeField] public Text playerNameUI;
+	[SerializeField] public HQDisplayer hqDisplayer;
+
 	[Header("Prog")]
 	[SerializeField] public List<Player> players;
+
 	public Player curPlayer;
 	int curPlayerIndex = 0;
 
@@ -66,6 +72,7 @@ public class TheGameManager : MonoBehaviour
 		if (gameState == GameState.Running && !isGamePaused)
 		{
 			timer -= Time.deltaTime;
+			hqDisplayer.timerUI.text = ((int)timer).ToString();
 
 			if (timer < 0)
 			{
@@ -83,6 +90,7 @@ public class TheGameManager : MonoBehaviour
 
 	void Init()
 	{
+		token++;
 		nbCityToRescue = nbCityAtStart + nbCityLeft;
 
 		List<Player> participatingPlayers = new List<Player>();
@@ -101,6 +109,8 @@ public class TheGameManager : MonoBehaviour
 
 		players.Clear();
 		players = participatingPlayers;
+
+		UISetActive(false);
 	}
 
 	public void StartGame()
@@ -110,6 +120,7 @@ public class TheGameManager : MonoBehaviour
 		SetTurn(curPlayerIndex);
 
 		StartCoroutine(StartNewCycleIn(3, nbCityAtStart));
+		UISetActive(true);
 	}
 
 	public void NextTurn()
@@ -126,6 +137,9 @@ public class TheGameManager : MonoBehaviour
 	{
 		curPlayer = players[_index];
 		curPlayer.StartTurn();
+
+		playerNameUI.text = curPlayer.name;
+		playerNameUI.color = curPlayer.pawn.GetComponentInChildren<MeshRenderer>().material.color;
 	}
 
 	public void ActivateRandomCity()
@@ -154,7 +168,7 @@ public class TheGameManager : MonoBehaviour
 	}
 
 	public void StartNewCycle(int _nbCity)
-	{
+	{ 
 		for (int i = 0; i < _nbCity; i++)
 		{
 			ActivateRandomCity();
@@ -168,6 +182,7 @@ public class TheGameManager : MonoBehaviour
 	public void TurnNewSandtimer()
 	{
 		token--;
+		hqDisplayer.tokenUI.text = token.ToString();
 		timer = timerDuration;
 	}
 
@@ -181,5 +196,11 @@ public class TheGameManager : MonoBehaviour
 	{
 		gameState = GameState.Win;
 		Debug.Log("Win ! (Not implemented yet");
+	}
+
+	public void UISetActive(bool _b)
+	{
+		hqDisplayer.gameObject.SetActive(_b);
+		playerNameUI.gameObject.SetActive(_b);
 	}
 }

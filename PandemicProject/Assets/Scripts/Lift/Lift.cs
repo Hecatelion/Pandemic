@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.UI;
 
 public class Lift : MonoBehaviour
 {
 	[SerializeField] ResourceType type = ResourceType.None;
 
 	[SerializeField] CargoRoom cargo;
+
+	Text ui;
 
 	public int sendingAmount = 0;
 	public bool isUsable = false;
@@ -18,6 +21,8 @@ public class Lift : MonoBehaviour
 
 	void Start()
     {
+		ui = GetComponentInChildren<Text>();
+		ui.gameObject.SetActive(false);
 		cargo = FindObjectOfType<CargoRoom>();
     }
 
@@ -66,6 +71,7 @@ public class Lift : MonoBehaviour
 		liftedSupply = null;
 		isFree = true;
 		sendingAmount--;
+		ui.text = sendingAmount.ToString();
 
 		if (sendingAmount == 0)
 		{
@@ -78,6 +84,8 @@ public class Lift : MonoBehaviour
 		sendingAmount = Mathf.Min(Mathf.Min(_sendingAmount, GetAllFreeSuitableSupplies().Count), cargo.bay.GetFreeSlotAmount());
 
 		isUsable = true;
+		ui.gameObject.SetActive(true);
+		ui.text = sendingAmount.ToString();
 
 		Debug.Log("Lift Activated");
 	}
@@ -85,6 +93,7 @@ public class Lift : MonoBehaviour
 	public void Deactivate()
 	{
 		isUsable = false;
+		ui.gameObject.SetActive(false);
 
 		Debug.Log("Lift Deactivated");
 		onDeactivation();

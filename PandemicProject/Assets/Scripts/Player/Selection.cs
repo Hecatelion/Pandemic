@@ -6,6 +6,7 @@ public class Selection : MonoBehaviour
 {
 	public List<ResourceDie> dice;
 	public Player player;
+	[SerializeField] Material mat;
 
 	void Start()
     {
@@ -22,6 +23,7 @@ public class Selection : MonoBehaviour
 		foreach (var die in dice)
 		{
 			die.isSelected = false;
+			die.meshRenderer.material = die.baseMat;
 		}
 
 		dice.Clear();
@@ -33,6 +35,7 @@ public class Selection : MonoBehaviour
 		{
 			_die.isSelected = true;
 			dice.Add(_die);
+			_die.meshRenderer.material = mat;
 
 			Debug.Log("Dice selected : " + _die.faceType);
 		}
@@ -44,6 +47,7 @@ public class Selection : MonoBehaviour
 		{
 			_die.isSelected = false;
 			dice.Remove(_die);
+			_die.meshRenderer.material = _die.baseMat;
 
 			Debug.Log("Dice unselected");
 		}

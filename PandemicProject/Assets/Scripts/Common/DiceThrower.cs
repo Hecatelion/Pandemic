@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 // pattern Singleton
 public class DiceThrower : MonoBehaviour
@@ -12,6 +13,8 @@ public class DiceThrower : MonoBehaviour
 
 	List<ResourceDie> dice = new List<ResourceDie>();
 
+	Text ui;
+
 	public DiceCallback onThrowEnd = (dice) => { };
 
     void Start()
@@ -19,6 +22,8 @@ public class DiceThrower : MonoBehaviour
         if (instance == null)
 		{
 			instance = this;
+
+			ui = GetComponentInChildren<Text>();
 		}
 		else
 		{
@@ -56,6 +61,8 @@ public class DiceThrower : MonoBehaviour
 		}
 
 		StartCoroutine(WaitForResult(_returnToOwner));
+
+		ui.gameObject.SetActive(false);
 	}
 
 	public void ThrowSelection()
@@ -64,6 +71,8 @@ public class DiceThrower : MonoBehaviour
 		selection.TakeDiceOutOfHand();
 		Throw(selection.dice, true);
 		selection.Flush();
+
+		ui.text = TheGameManager.instance.curPlayer.nbThrow.ToString();
 	}
 
 	public void Empty()
@@ -92,6 +101,8 @@ public class DiceThrower : MonoBehaviour
 				}
 			}
 		}
+
+		ui.gameObject.SetActive(true);
 
 		onThrowEnd(dice);
 

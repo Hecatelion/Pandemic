@@ -17,11 +17,15 @@ public class ResourceDie : PhysicsInteractible, IPickable
 	float sleepingTime = 0f;
 
 	Rigidbody rb;
+	public MeshRenderer meshRenderer;
+	public Material baseMat;
 
 	//public Callback onStabilise = () => { };
 
 	void Start()
 	{
+		meshRenderer = GetComponent<MeshRenderer>();
+		baseMat = meshRenderer.material;
 		owner = transform.parent.GetComponent<Player>();
 		rb = GetComponent<Rigidbody>();
 
